@@ -1,0 +1,21 @@
+# Ignore the target directory
+target/
+
+# Ignore NetBeans specific files
+nbproject/private/
+nbbuild/
+nbdist/
+nbactions.xml
+
+# Ignore IntelliJ IDEA specific files (if using IntelliJ)
+.idea/
+*.iml
+
+# Ignore other IDE-specific files
+*.swp
+*.swo
+*.log
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db

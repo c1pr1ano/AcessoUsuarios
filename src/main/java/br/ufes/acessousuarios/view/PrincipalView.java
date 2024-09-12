@@ -8,6 +8,6 @@ package br.ufes.acessousuarios.view;
  *
  * @author fabio
  */
-public class MDIView {
+public class PrincipalView {
     
 }

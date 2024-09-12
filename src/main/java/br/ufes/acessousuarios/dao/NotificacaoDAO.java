@@ -24,6 +24,7 @@ public class NotificacaoDAO {
         }
     }
 
+    // Cria a tabela de notificações se não existir
     public void criarTabela() {
         String sql = "CREATE TABLE IF NOT EXISTS notificacoes (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -40,7 +41,7 @@ public class NotificacaoDAO {
         }
     }
 
-    // Método para inserir uma nova notificação
+    // Insere uma nova notificação
     public void inserirNotificacao(Notificacao notificacao) {
         String sql = "INSERT INTO notificacoes (usuario_id, mensagem, data_envio, lida) VALUES (?, ?, ?, ?)";
 
@@ -55,7 +56,7 @@ public class NotificacaoDAO {
         }
     }
 
-    // Método para listar todas as notificações de um usuário
+    // Lista todas as notificações de um usuário
     public List<Notificacao> listarNotificacoes(int usuarioId) {
         String sql = "SELECT * FROM notificacoes WHERE usuario_id = ?";
         List<Notificacao> notificacoes = new ArrayList<>();
@@ -81,7 +82,7 @@ public class NotificacaoDAO {
         return notificacoes;
     }
 
-    // Método para marcar uma notificação como lida
+    // Marca uma notificação como lida
     public void marcarComoLida(int id) {
         String sql = "UPDATE notificacoes SET lida = 1 WHERE id = ?";
 
@@ -93,7 +94,7 @@ public class NotificacaoDAO {
         }
     }
 
-    // Método para deletar uma notificação
+    // Deleta uma notificação
     public void deletarNotificacao(int id) {
         String sql = "DELETE FROM notificacoes WHERE id = ?";
 

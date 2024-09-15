@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/MDIApplication.java to edit this template
  */
-package com.ufes.projetossistemassoftware.mavenproject5;
+package br.ufes.acessousuarios.view;
 
 /**
  *
  * @author USER
  */
-public class PrinciplaViewMDI extends javax.swing.JFrame {
+public class PrincipalViewMDIAdmin extends javax.swing.JFrame {
 
     /**
      * Creates new form PrincipalMDI
      */
-    public PrinciplaViewMDI() {
+    public PrincipalViewMDIAdmin() {
         initComponents();
     }
 
@@ -29,10 +29,9 @@ public class PrinciplaViewMDI extends javax.swing.JFrame {
         tela = new javax.swing.JDesktopPane();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
-        openMenuItem = new javax.swing.JMenuItem();
-        saveMenuItem = new javax.swing.JMenuItem();
-        saveAsMenuItem = new javax.swing.JMenuItem();
-        exitMenuItem = new javax.swing.JMenuItem();
+        itenMenuCadastrar = new javax.swing.JMenuItem();
+        itenMenuVisualizar = new javax.swing.JMenuItem();
+        itenMenuAutorizar = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         cutMenuItem = new javax.swing.JMenuItem();
         copyMenuItem = new javax.swing.JMenuItem();
@@ -44,36 +43,31 @@ public class PrinciplaViewMDI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Acesso Usuarios");
+        setResizable(false);
 
         fileMenu.setMnemonic('f');
-        fileMenu.setText("File");
+        fileMenu.setText("Usuarios");
 
-        openMenuItem.setMnemonic('o');
-        openMenuItem.setText("Login");
-        openMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        itenMenuCadastrar.setMnemonic('o');
+        itenMenuCadastrar.setText("Cadastrar");
+        itenMenuCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openMenuItemActionPerformed(evt);
+                itenMenuCadastrarActionPerformed(evt);
             }
         });
-        fileMenu.add(openMenuItem);
+        fileMenu.add(itenMenuCadastrar);
 
-        saveMenuItem.setMnemonic('s');
-        saveMenuItem.setText("Save");
-        fileMenu.add(saveMenuItem);
-
-        saveAsMenuItem.setMnemonic('a');
-        saveAsMenuItem.setText("Save As ...");
-        saveAsMenuItem.setDisplayedMnemonicIndex(5);
-        fileMenu.add(saveAsMenuItem);
-
-        exitMenuItem.setMnemonic('x');
-        exitMenuItem.setText("Exit");
-        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        itenMenuVisualizar.setMnemonic('s');
+        itenMenuVisualizar.setText("Visualizar");
+        itenMenuVisualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitMenuItemActionPerformed(evt);
+                itenMenuVisualizarActionPerformed(evt);
             }
         });
-        fileMenu.add(exitMenuItem);
+        fileMenu.add(itenMenuVisualizar);
+
+        itenMenuAutorizar.setText("Autorizar");
+        fileMenu.add(itenMenuAutorizar);
 
         menuBar.add(fileMenu);
 
@@ -118,28 +112,33 @@ public class PrinciplaViewMDI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(tela, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tela, javax.swing.GroupLayout.PREFERRED_SIZE, 833, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(tela, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tela, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_exitMenuItemActionPerformed
+    private void itenMenuVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itenMenuVisualizarActionPerformed
+        UsuarioListView usuarioListView = new UsuarioListView();
+        tela.add(usuarioListView);
+        //usuarioListView.setSize(400, 300);
+        usuarioListView.setVisible(true);
+    }//GEN-LAST:event_itenMenuVisualizarActionPerformed
 
-    private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
-        NotificacaoViewMDI log = new NotificacaoViewMDI();
-        tela.add(log);
-        tela.setVisible(true);
-    }//GEN-LAST:event_openMenuItemActionPerformed
+    private void itenMenuCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itenMenuCadastrarActionPerformed
+        CadastroInterno cad = new CadastroInterno();
+        tela.add(cad);
+        cad.setSize(400, 300);
+        cad.setVisible(true);
+    }//GEN-LAST:event_itenMenuCadastrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,14 +157,38 @@ public class PrinciplaViewMDI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PrinciplaViewMDI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrincipalViewMDIAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PrinciplaViewMDI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrincipalViewMDIAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PrinciplaViewMDI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrincipalViewMDIAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PrinciplaViewMDI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrincipalViewMDIAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -178,7 +201,7 @@ public class PrinciplaViewMDI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PrinciplaViewMDI().setVisible(true);
+                new PrincipalViewMDIAdmin().setVisible(true);
             }
         });
     }
@@ -190,14 +213,13 @@ public class PrinciplaViewMDI extends javax.swing.JFrame {
     private javax.swing.JMenuItem cutMenuItem;
     private javax.swing.JMenuItem deleteMenuItem;
     private javax.swing.JMenu editMenu;
-    private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JMenuItem itenMenuAutorizar;
+    private javax.swing.JMenuItem itenMenuCadastrar;
+    private javax.swing.JMenuItem itenMenuVisualizar;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem pasteMenuItem;
-    private javax.swing.JMenuItem saveAsMenuItem;
-    private javax.swing.JMenuItem saveMenuItem;
     private javax.swing.JDesktopPane tela;
     // End of variables declaration//GEN-END:variables
 

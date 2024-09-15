@@ -14,14 +14,14 @@ public class TelaBaseInicialView extends javax.swing.JFrame {
      * Creates new form TelaBaseInicialView
      */
     public TelaBaseInicialView() {
-        initComponents();
-         InicialView inicialtela = new InicialView();
-        tela.add(inicialtela);
-        try {
-            inicialtela.setSelected(true);  // Define como a janela ativa
-        } catch (java.beans.PropertyVetoException e) {
-            e.printStackTrace();
-        }
+//        initComponents();
+//         InicialView inicialtela = new InicialView();
+//        tela.add(inicialtela);
+//        try {
+//            inicialtela.setSelected(true);  // Define como a janela ativa
+//        } catch (java.beans.PropertyVetoException e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**

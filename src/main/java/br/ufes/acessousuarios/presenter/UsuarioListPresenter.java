@@ -4,6 +4,7 @@ import br.ufes.acessousuarios.dao.UsuarioDAO;
 import br.ufes.acessousuarios.model.Notificacao;
 import br.ufes.acessousuarios.model.Usuario;
 import br.ufes.acessousuarios.service.NotificacaoService; // Importa o serviço para notificações
+import br.ufes.acessousuarios.view.UsuarioListView;
 import br.ufes.log.LogAdapter;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class UsuarioListPresenter {
     private NotificacaoService notificacaoService; // Adiciona a referência ao serviço de notificações
     private LogAdapter logAdapter;
 
-    public UsuarioListPresenter() {
+    public UsuarioListPresenter(UsuarioListView view) {
         this.usuarioDAO = new UsuarioDAO();
         this.notificacaoService = new NotificacaoService(); // Inicializa o serviço de notificações
         this.logAdapter = new LogAdapter("CSV", "usuario_log.csv"); // Exemplo de configuração do log
@@ -44,7 +45,7 @@ public class UsuarioListPresenter {
     }
 
     // Método para visualizar notificações do usuário
-    public void visualizarNotificacoes(int usuarioId) {
+  public void visualizarNotificacoes(int usuarioId) throws Exception {
         try {
             Usuario usuario = usuarioDAO.buscarPorId(usuarioId);
 
@@ -57,12 +58,12 @@ public class UsuarioListPresenter {
 
             // Chama o método específico para listar e exibir notificações
             List<Notificacao> notificacoes = notificacaoService.listarNotificacoes(usuarioId);
-            view.exibirNotificacoes(notificacoes); // Assumindo que há um método na view para exibir notificações
+            //view.exibirNotificacoes(notificacoes); // Assumindo que há um método na view para exibir notificações
 
             logAdapter.log("VISUALIZAR_NOTIFICACOES", "Sistema", "Sistema", true, "Notificações visualizadas com sucesso para o usuário com ID " + usuarioId + ".");
         } catch (Exception e) {
             logAdapter.log("VISUALIZAR_NOTIFICACOES", "Sistema", "Sistema", false, "Erro ao visualizar notificações para o usuário com ID " + usuarioId + ": " + e.getMessage());
-            throw e; // Re-throw para que o chamador possa lidar com a exceção
+            throw e; 
         }
     }
 

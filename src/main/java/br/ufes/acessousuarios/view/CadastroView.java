@@ -4,9 +4,12 @@
  */
 package br.ufes.acessousuarios.view;
 
+import br.ufes.acessousuarios.dao.UsuarioDAO;
 import br.ufes.acessousuarios.model.Usuario;
 import br.ufes.acessousuarios.presenter.LoginPresenter;
 import br.ufes.acessousuarios.service.LoginService;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -18,12 +21,12 @@ import javax.swing.JTextField;
  *
  * @author USER
  */
-public class LoginView extends javax.swing.JFrame {
+public class CadastroView extends javax.swing.JFrame {
 
     /**
      * Creates new form LoginView
      */
-    public LoginView() {
+    public CadastroView() {
         initComponents();
     }
 
@@ -38,18 +41,21 @@ public class LoginView extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         txtLogin = new javax.swing.JTextField();
-        btnLogin = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
         txtSenha = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        listaTipo = new javax.swing.JComboBox<>();
+        btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
 
-        jLabel1.setText("Login");
+        jLabel1.setText("Nome de úsuario");
 
         txtLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,10 +63,10 @@ public class LoginView extends javax.swing.JFrame {
             }
         });
 
-        btnLogin.setText("Logar");
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
+                btnCadastrarActionPerformed(evt);
             }
         });
 
@@ -80,51 +86,78 @@ public class LoginView extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Constantia", 1, 18)); // NOI18N
-        jLabel3.setText("Login");
+        jLabel3.setText("Cadastrar");
+
+        jLabel4.setText("Tipo ");
+
+        listaTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario", "Aministrador" }));
+        listaTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaTipoActionPerformed(evt);
+            }
+        });
+
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(76, 76, 76)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(10, 10, 10)
-                        .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(8, 8, 8)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(76, 76, 76)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnCancelar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnLogin))
-                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(77, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(151, 151, 151))
+                                .addComponent(jLabel1)
+                                .addGap(10, 10, 10)
+                                .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(listaTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(149, 149, 149)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(btnCancelar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnVoltar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCadastrar)))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(5, 5, 5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(listaTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
-                    .addComponent(btnLogin))
+                    .addComponent(btnCadastrar)
+                    .addComponent(btnVoltar))
                 .addGap(31, 31, 31))
         );
 
@@ -147,7 +180,7 @@ public class LoginView extends javax.swing.JFrame {
 
     public JButton getBtnLogin() {
 
-        return btnLogin;
+        return btnCadastrar;
     }
 
     public void exibirMensagem(String mensagem) {
@@ -162,31 +195,27 @@ public class LoginView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtLoginActionPerformed
 
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
         String usuario = txtLogin.getText();
         String senha = new String(txtSenha.getPassword());
+        String tipo = (String) listaTipo.getSelectedItem();
         LoginService loginService = new LoginService();
-       try {
-        Usuario usuarioAutenticado = loginService.autenticar(usuario, senha);
-        
-        if (usuarioAutenticado != null) {
-            
-            JOptionPane.showMessageDialog(this, "Login realizado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            PrincipalViewMDIAdmin principalView = new PrincipalViewMDIAdmin();
-            principalView.setVisible(true);
-            this.dispose();
-        } else {
-            // Login falhou
-            JOptionPane.showMessageDialog(this, "Usuário ou senha inválidos.", "Erro", JOptionPane.ERROR_MESSAGE);
+        if (usuario.isEmpty() || senha.isEmpty()) {
+            exibirErro("Nome de usuário e senha não podem ser vazios.");
+            return;
         }
-    } catch (IllegalArgumentException e) {
-        // Exibe mensagem de erro se os parâmetros forem inválidos
-        JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-    } catch (Exception e) {
-        // Exibe mensagem de erro para qualquer outro tipo de exceção
-        JOptionPane.showMessageDialog(this, "Erro ao realizar login: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-    }        
-    }//GEN-LAST:event_btnLoginActionPerformed
+        String dataCadastro = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+        Usuario novoUsuario = new Usuario(1,usuario,senha,tipo,dataCadastro,"desativado");
+       
+        try {
+            usuarioDAO.inserirUsuario(novoUsuario);
+            exibirMensagem("Usuário cadastrado com sucesso.");
+            
+        } catch (Exception e) {
+            exibirErro("Erro ao cadastrar usuário: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
         // TODO add your handling code here:
@@ -197,6 +226,16 @@ public class LoginView extends javax.swing.JFrame {
         
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void listaTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaTipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listaTipoActionPerformed
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        InicialView inicialView = new InicialView();
+        inicialView.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,31 +254,40 @@ public class LoginView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginView().setVisible(true);
+                new CadastroView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JComboBox<String> listaTipo;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables

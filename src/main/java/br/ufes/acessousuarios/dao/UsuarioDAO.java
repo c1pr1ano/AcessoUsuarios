@@ -1,6 +1,8 @@
 package br.ufes.acessousuarios.dao;
 
 import br.ufes.acessousuarios.model.Usuario;
+import br.ufes.acessousuarios.view.CadastroView;
+import br.ufes.acessousuarios.view.LoginView;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -37,8 +39,17 @@ public class UsuarioDAO {
 
     // Insere um novo usuário na tabela
     public void inserirUsuario(Usuario usuario) {
+        boolean usuariosExistem = this.existeUsuarios();
+                if (usuariosExistem) {
+                    usuario.setStatus("desativado");
+                    usuario.setTipo("Usuario");
+                } else {
+                    usuario.setStatus("ativo");
+                    usuario.setTipo("Administrador");
+                }
+        
         String sql = "INSERT INTO usuario(nome, senha, tipo, dataCadastro, status) VALUES(?, ?, ?, ?, ?)";
-
+        
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, usuario.getNome());
             pstmt.setString(2, usuario.getSenha());
@@ -152,5 +163,20 @@ public class UsuarioDAO {
         }
 
         return usuario;
+    }
+    public boolean existeUsuarios() {
+         String sql = "SELECT COUNT(*) AS total FROM usuario";
+    boolean existe = false;
+
+    try (Statement stmt = connection.createStatement();
+         ResultSet rs = stmt.executeQuery(sql)) {
+        if (rs.next()) {
+            existe = rs.getInt("total") > 0; // Usa o alias "total" para obter a contagem
+        }
+    } catch (SQLException e) {
+        System.err.println("Erro ao verificar se existem usuários: " + e.getMessage());
+    }
+
+    return existe;
     }
 }

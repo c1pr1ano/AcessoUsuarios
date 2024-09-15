@@ -2,6 +2,7 @@ package br.ufes.acessousuarios.presenter;
 
 import br.ufes.acessousuarios.model.Notificacao;
 import br.ufes.acessousuarios.service.NotificacaoService;
+import br.ufes.acessousuarios.view.NotificacaoListView;
 import br.ufes.log.LogAdapter;
 import java.util.List;
 

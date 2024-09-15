@@ -10,7 +10,6 @@ nbactions.xml
 # Ignore IntelliJ IDEA specific files (if using IntelliJ)
 .idea/
 *.iml
-*.ini
 
 # Ignore other IDE-specific files
 *.swp
@@ -20,4 +19,3 @@ nbactions.xml
 # Ignore OS-specific files
 .DS_Store
 Thumbs.db
-desktop.ini
